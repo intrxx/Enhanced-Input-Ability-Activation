@@ -6,7 +6,7 @@ The goal of this small documentation is to show Lyra's GAS Input System in a sma
 
 The Sample Project and documentation are up-to-date with Unreal Engine 5.2.
 
-The best example of this system will always be [Lyra Sample Game](https://docs.unrealengine.com/5.0/en-US/lyra-sample-game-in-unreal-engine/) and source code.
+The best example of this system and documentation about it will always be [Lyra Sample Game](https://docs.unrealengine.com/5.0/en-US/lyra-sample-game-in-unreal-engine/) and source code.
 
 
 
