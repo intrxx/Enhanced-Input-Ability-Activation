@@ -4,9 +4,9 @@ My implementation of the Lyra Input System for Gameplay Ability System plugin (G
 
 The goal of this small documentation is to show Lyra's GAS Input System in a small sample project so that the users can learn how everything is done without the need to dig into [Lyra Sample Game](https://docs.unrealengine.com/5.0/en-US/lyra-sample-game-in-unreal-engine/).
 
-The Sample Project and documentation are up-to-date with Unreal Engine 5.2.1.
+The Sample Project and documentation are up-to-date with Unreal Engine 5.2.
 
-The best example of this system will always be [Lyra Sample Game](https://docs.unrealengine.com/5.0/en-US/lyra-sample-game-in-unreal-engine/).
+The best example of this system will always be [Lyra Sample Game](https://docs.unrealengine.com/5.0/en-US/lyra-sample-game-in-unreal-engine/) and source code.
 
 
 
