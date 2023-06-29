@@ -3,8 +3,13 @@
 
 #include "Characters/Hero/ISHeroCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "ISGameplayTags.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GAS/ISAbilitySystemComponent.h"
+#include "GAS/ISAbilitySet.h"
+#include "Input/ISInputComponent.h"
+#include "Player/ISPlayerController.h"
 #include "Player/ISPlayerState.h"
 
 AISHeroCharacter::AISHeroCharacter()
@@ -27,11 +32,32 @@ AISHeroCharacter::AISHeroCharacter()
 void AISHeroCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	if(AISPlayerController* PC = Cast<AISPlayerController>(GetController()))
+	{
+		if(UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
+	}
 }
 
 void AISHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	UISInputComponent* EInputComponent = Cast<UISInputComponent>(PlayerInputComponent);
+	check(EInputComponent);
+	
+	const FISGameplayTags& GameplayTags = FISGameplayTags::Get();
+	TArray<uint32> BindHandles;
+	
+	EInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::InputAbilityInputTagPressed,
+		&ThisClass::InputAbilityInputTagReleased, /*out*/ BindHandles);
+
+	EInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Move, ETriggerEvent::Triggered, this,
+		&ThisClass::Move);
+	EInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Look, ETriggerEvent::Triggered, this,
+		&ThisClass::Look);
 }
 
 void AISHeroCharacter::Move(const FInputActionValue& Value)
@@ -68,6 +94,16 @@ void AISHeroCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+void AISHeroCharacter::InputAbilityInputTagPressed(FGameplayTag InputTag)
+{
+	AbilitySystemComponent->AbilityInputTagPressed(InputTag);
+}
+
+void AISHeroCharacter::InputAbilityInputTagReleased(FGameplayTag InputTag)
+{
+	AbilitySystemComponent->AbilityInputTagReleased(InputTag);
+}
+
 void AISHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
@@ -77,4 +113,9 @@ void AISHeroCharacter::PossessedBy(AController* NewController)
 
 	AbilitySystemComponent = Cast<UISAbilitySystemComponent>(PS->GetAbilitySystemComponent());
 	PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS,this);
+
+	if(AbilitySet)
+	{
+		AbilitySet->GiveToAbilitySystem(AbilitySystemComponent.Get(), nullptr, this);
+	}
 }

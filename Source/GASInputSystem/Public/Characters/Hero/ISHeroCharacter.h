@@ -7,6 +7,8 @@
 #include "Characters/ISCharacterBase.h"
 #include "ISHeroCharacter.generated.h"
 
+class UISInputConfig;
+class UISAbilitySet;
 class USpringArmComponent;
 class UCameraComponent;
 /**
@@ -31,10 +33,23 @@ protected:
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 
+	void InputAbilityInputTagPressed(FGameplayTag InputTag);
+	void InputAbilityInputTagReleased(FGameplayTag InputTag);
+
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "InputSystem|Abilities")
+	UISAbilitySet* AbilitySet;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "InputSystem|Input")
+	UISInputConfig* InputConfig;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "InputSystem|Input")
+	class UInputMappingContext* DefaultMappingContext;
+
 private:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SN|Character", Meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "InputSystem|Character", Meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* CameraComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SN|Character", Meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "InputSystem|Character", Meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* SpringArmComp;
 };
