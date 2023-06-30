@@ -106,6 +106,22 @@ void AISHeroCharacter::InputAbilityInputTagReleased(FGameplayTag InputTag)
 	AbilitySystemComponent->AbilityInputTagReleased(InputTag);
 }
 
+void AISHeroCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	AISPlayerState* PS = Cast<AISPlayerState>(GetPlayerState());
+	check(PS);
+
+	AbilitySystemComponent = Cast<UISAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+	PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS,this);
+
+	if(AbilitySet)
+	{
+		AbilitySet->GiveToAbilitySystem(AbilitySystemComponent.Get(), nullptr, this);
+	}
+}
+
 void AISHeroCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);

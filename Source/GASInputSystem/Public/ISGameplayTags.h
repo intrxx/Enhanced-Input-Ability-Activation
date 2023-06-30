@@ -21,7 +21,8 @@ public:
 	FGameplayTag Input_Look;
 
 	// Ability Input
-	FGameplayTag Ability_Input_Test;
+	FGameplayTag Ability_Input_WhileInputActive;
+	FGameplayTag Ability_Input_OnInputTriggered;
 
 	
 protected:

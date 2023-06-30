@@ -16,10 +16,7 @@ enum class EISAbilityActivationPolicy : uint8
 	OnInputTriggered,
 	
 	// Continually try to activate the ability while the input is active.
-	WhileInputActive,
-	
-	// Try to activate the ability when an avatar is assigned.
-	OnSpawn
+	WhileInputActive
 };
 
 /**

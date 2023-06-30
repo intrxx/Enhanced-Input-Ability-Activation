@@ -37,6 +37,9 @@ protected:
 	void InputAbilityInputTagPressed(FGameplayTag InputTag);
 	void InputAbilityInputTagReleased(FGameplayTag InputTag);
 
+	// Client only.
+	virtual void OnRep_PlayerState() override;
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "InputSystem|Abilities")
 	UISAbilitySet* AbilitySet;

@@ -22,7 +22,8 @@ void FISGameplayTags::AddAllTags(UGameplayTagsManager& Manager)
 	AddTag(Input_Look, "Input.Look", "Look input.");
 
 	// Ability Input
-	AddTag(Ability_Input_Test, "Ability.Input.Test", "Test ability input.");
+	AddTag(Ability_Input_OnInputTriggered, "Ability.Input.OnInputTriggered", "Test ability input.");
+	AddTag(Ability_Input_WhileInputActive, "Ability.Input.WhileInputActive", "Test ability input.");
 }
 
 void FISGameplayTags::AddTag(FGameplayTag& OutTag, const ANSICHAR* TagName, const ANSICHAR* TagComment)
