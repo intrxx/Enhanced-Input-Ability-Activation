@@ -20,9 +20,10 @@ class GASINPUTSYSTEM_API AISHeroCharacter : public AISCharacterBase
 public:
 	AISHeroCharacter();
 
-	// Called to bind functionality to input
+	// Called to bind functionality to input.
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Called by the server.
 	virtual void PossessedBy(AController* NewController) override;
 
 protected:
@@ -30,6 +31,9 @@ protected:
 	
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
+
+	// Client only.
+	virtual void OnRep_PlayerState() override;
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SN|Character", Meta = (AllowPrivateAccess = "true"))

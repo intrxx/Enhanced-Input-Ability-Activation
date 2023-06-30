@@ -4,6 +4,7 @@
 #include "Characters/Hero/ISHeroCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GAS/ISAbilitySystemComponent.h"
 #include "Player/ISPlayerState.h"
 
@@ -12,6 +13,9 @@ AISHeroCharacter::AISHeroCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f,0.0f);
 	
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
 	SpringArmComp->SetupAttachment(RootComponent);
@@ -66,6 +70,18 @@ void AISHeroCharacter::Look(const FInputActionValue& Value)
 			AddControllerPitchInput(-LookValue.Y);
 		}
 	}
+}
+
+void AISHeroCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
+
+	AISPlayerState* PS = Cast<AISPlayerState>(GetPlayerState());
+	check(PS);
+
+	AbilitySystemComponent = Cast<UISAbilitySystemComponent>(PS->GetAbilitySystemComponent());
+	PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS,this);
+	
 }
 
 void AISHeroCharacter::PossessedBy(AController* NewController)
