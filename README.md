@@ -10,5 +10,5 @@ The best example of this system and documentation about it will always be [Lyra 
 
 ## Gameplay Ability System
 
-I am going to assume that you have your project with GAS done and working however if you're struggling with getting it to work or don't have a project at all you can switch to [Sample-GAS-Implementation](https://github.com/intrxx/Enhanced-Input-Ability-Activation/tree/Sample-GAS-Implementation) branch and download the sample project with GAS implemented.
+I am going to assume that you have your project with GAS done and working however if you're struggling with getting it to work or don't have a project at all you can switch to [Sample-GAS-Implementation](https://github.com/intrxx/Enhanced-Input-Ability-Activation/tree/Sample-GAS-Implementation) branch and copy the sample project with GAS implemented.
 
