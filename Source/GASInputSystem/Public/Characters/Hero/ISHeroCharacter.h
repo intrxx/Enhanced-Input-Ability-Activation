@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
+#include "GameplayTagContainer.h"
 #include "Characters/ISCharacterBase.h"
 #include "ISHeroCharacter.generated.h"
 

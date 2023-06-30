@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "ISGameplayTags.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GAS/ISAbilitySystemComponent.h"
 #include "GAS/ISAbilitySet.h"
 #include "Input/ISInputComponent.h"
@@ -17,6 +18,9 @@ AISHeroCharacter::AISHeroCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f,0.0f);
 	
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
 	SpringArmComp->SetupAttachment(RootComponent);
@@ -43,20 +47,18 @@ void AISHeroCharacter::BeginPlay()
 
 void AISHeroCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	UISInputComponent* EInputComponent = Cast<UISInputComponent>(PlayerInputComponent);
-	check(EInputComponent);
+	UISInputComponent* ISInputComponent = Cast<UISInputComponent>(PlayerInputComponent);
+	check(ISInputComponent);
 	
 	const FISGameplayTags& GameplayTags = FISGameplayTags::Get();
 	TArray<uint32> BindHandles;
 	
-	EInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::InputAbilityInputTagPressed,
+	ISInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::InputAbilityInputTagPressed,
 		&ThisClass::InputAbilityInputTagReleased, /*out*/ BindHandles);
 
-	EInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Move, ETriggerEvent::Triggered, this,
+	ISInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Move, ETriggerEvent::Triggered, this,
 		&ThisClass::Move);
-	EInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Look, ETriggerEvent::Triggered, this,
+	ISInputComponent->BindNativeAction(InputConfig, GameplayTags.Input_Look, ETriggerEvent::Triggered, this,
 		&ThisClass::Look);
 }
 
