@@ -14,7 +14,7 @@ I am going to assume that you have your project with GAS done and working howeve
 
 ## Gameplay Tags
 
-[Gameplay Tags](https://docs.unrealengine.com/4.26/en-US/ProgrammingAndScripting/Tags/) are hierarchical labels in the form of Parent.Child.Grandchild... that are registered with a Tags Manager. Gameplay Tags must be defined ahead of time in the DefaultGameplayTags.ini. UE5 Editor provides an interface in project settings to let developers manage GameplayTags without needing to manually edit the DefaultGameplayTags.ini. 
+[Gameplay Tags](https://docs.unrealengine.com/4.26/en-US/ProgrammingAndScripting/Tags/) are hierarchical labels in the form of `Parent.Child.Grandchild...` that are registered with a Tags Manager. Gameplay Tags must be defined ahead of time in the `DefaultGameplayTags.ini`. UE5 Editor provides an interface in project settings to let developers manage GameplayTags without needing to manually edit the `DefaultGameplayTags.ini`. 
 
 ![Gameplay Tags Editor in Project Settings](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/GameplayTagsEditor.png)
 
