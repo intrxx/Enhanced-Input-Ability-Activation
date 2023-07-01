@@ -130,7 +130,7 @@ void AISHeroCharacter::PossessedBy(AController* NewController)
 	check(PS);
 
 	AbilitySystemComponent = Cast<UISAbilitySystemComponent>(PS->GetAbilitySystemComponent());
-	PS->GetAbilitySystemComponent()->InitAbilityActorInfo(PS,this);
+	AbilitySystemComponent->InitAbilityActorInfo(PS,this);
 
 	if(AbilitySet)
 	{
