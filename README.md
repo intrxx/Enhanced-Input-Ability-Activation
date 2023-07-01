@@ -20,7 +20,7 @@ I am going to assume that you have your project with GAS done and working howeve
 
 More information on Gameplay Tags can be found on [Unreal Engine Documentation](https://docs.unrealengine.com/4.26/en-US/ProgrammingAndScripting/Tags/) or [GASDocumentation](https://github.com/tranek/GASDocumentation) which is a great resource to learn everything related to Gameplay Ability System.
 
-I like to define my Gameplay Tags in c++ to do this you will need to create a class that will define Tags and initialize it with Asset Manager.
+I like to define my Gameplay Tags in c++ to do this you will need to create a class that will define Tags and initializes them with Asset Manager.
 
 ```c++
 #pragma once
@@ -97,8 +97,11 @@ void UISAssetManager::StartInitialLoading()
 	UAbilitySystemGlobals::Get().InitGlobalData();
 }
 ```
+Lastly, you will need to add the custom Asset Manager class in Editor.
 
-## Implementing the Lyra-like Input System
+![Adding Asset Manager class in Editor](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/AddingAssetManagerInEditor.png)
+
+## Implementing the Lyra-like Input System - Code
 
 ### Input Config
 
@@ -372,6 +375,10 @@ void UISInputComponent::BindAbilityActions(const UISInputConfig* InputConfig, Us
 	}
 }
 ```
+
+You will also need to add the custom Enhanced Input Component in the Editor to replace the default one.
+
+![Adding custom Input Compoenent in Editor](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/AddingDefaultInputComponentClass.png)
 
 ### Gameplay Ability
 
@@ -680,6 +687,45 @@ void AISHeroCharacter::InputAbilityInputTagReleased(FGameplayTag InputTag)
 	AbilitySystemComponent->AbilityInputTagReleased(InputTag);
 }
 ```
+
+## Implementing the Lyra-like Input System - Editor
+
+### Gameplay Ability
+
+We are going to create Gameplay Ability derived from our `ISGameplayAbility` custom class. This simple Gameplay Ability will contain the `Wait Input Release` task to check if our `WhileInputActive` activation works correctly. The sample project contains one more Gameplay Ability with a simple OnInputTrigger activation policy.
+
+![WaitInputReleaseGameplayAbilityBlueprint](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/GameplayAbility.png)
+
+### Input Actions
+
+For every Ability/Native input, we need to create an Input Action that will be mapped to Gameplay Tag.
+
+![InputActionDataAsset](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/InputAction.png)
+
+### Input Mapping Context
+
+Standard Input Mapping Context that will map our Input Actions to control bindings.
+
+![InputMappingContextDataAsset](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/InputMappingContext.png)
+
+### Input Config and Ability Set Data Assets
+
+Now we need to create two Data Assets derived from the ones we created in the code.
+
+![InputConfigDataAsset](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/InputConfig.png)
+#### InputConfig
+
+![AbilitySetDataAsset](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/AbilitySet.png)
+#### AbilitySet
+
+### Character Class Blueprint
+
+Lastly, we need to add all the Data Assets to our Character Class.
+
+![CharacterClassBlueprint](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/CharacterClass.png)
+
+
+
 
 
 
