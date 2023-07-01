@@ -712,11 +712,11 @@ Standard Input Mapping Context that will map our Input Actions to control bindin
 
 Now we need to create two Data Assets derived from the ones we created in the code.
 
-![InputConfigDataAsset](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/InputConfig.png)
 #### InputConfig
+![InputConfigDataAsset](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/InputConfig.png)
 
-![AbilitySetDataAsset](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/AbilitySet.png)
 #### AbilitySet
+![AbilitySetDataAsset](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/AbilitySet.png)
 
 ### Character Class Blueprint
 
