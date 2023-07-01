@@ -597,7 +597,7 @@ void UISAbilitySystemComponent::AbilitySpecInputReleased(FGameplayAbilitySpec& S
 Our custom Player Controller needs to override `PostProcessInput()` function and call `ProcessAbilityInput()` from our Ability System Component:
 
 ```c++
-	virtual void PostProcessInput(const float DeltaTime, const bool bGamePaused) override;
+virtual void PostProcessInput(const float DeltaTime, const bool bGamePaused) override;
 ```
 
 ```c++
