@@ -694,7 +694,7 @@ void AISHeroCharacter::InputAbilityInputTagReleased(FGameplayTag InputTag)
 
 We are going to create Gameplay Ability derived from our `ISGameplayAbility` custom class. This simple Gameplay Ability will contain the `Wait Input Release` task to check if our `WhileInputActive` activation works correctly. The sample project contains one more Gameplay Ability with a simple OnInputTrigger activation policy.
 
-![WaitInputReleaseGameplayAbilityBlueprint](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/GameplayAbility.png)
+![WaitInputReleaseGameplayAbilityBlueprint](https://github.com/intrxx/Enhanced-Input-Ability-Activation/blob/main/Images/GameplayAbilityBlueprint.png)
 
 ### Input Actions
 
