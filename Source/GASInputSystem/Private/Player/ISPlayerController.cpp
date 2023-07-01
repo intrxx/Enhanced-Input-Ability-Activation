@@ -28,9 +28,9 @@ void AISPlayerController::PreProcessInput(const float DeltaTime, const bool bGam
 
 void AISPlayerController::PostProcessInput(const float DeltaTime, const bool bGamePaused)
 {
-	if(UISAbilitySystemComponent* SNASC = GetISAbilitySystemComponent())
+	if(UISAbilitySystemComponent* ASC = GetISAbilitySystemComponent())
 	{
-		SNASC->ProcessAbilityInput(DeltaTime, bGamePaused);
+		ASC->ProcessAbilityInput(DeltaTime, bGamePaused);
 	}
 	
 	Super::PostProcessInput(DeltaTime, bGamePaused);
