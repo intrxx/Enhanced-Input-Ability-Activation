@@ -603,9 +603,9 @@ virtual void PostProcessInput(const float DeltaTime, const bool bGamePaused) ove
 ```c++
 void AISPlayerController::PostProcessInput(const float DeltaTime, const bool bGamePaused)
 {
-	if(UISAbilitySystemComponent* SNASC = GetISAbilitySystemComponent())
+	if(UISAbilitySystemComponent* ASC = GetISAbilitySystemComponent())
 	{
-		SNASC->ProcessAbilityInput(DeltaTime, bGamePaused);
+		ASC->ProcessAbilityInput(DeltaTime, bGamePaused);
 	}
 	
 	Super::PostProcessInput(DeltaTime, bGamePaused);
