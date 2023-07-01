@@ -35,7 +35,7 @@ class UGameplayTagsManager;
 struct GASINPUTSYSTEM_API FISGameplayTags
 {
 public:
-    static const FISGameplayTags& Get() {return GameplayTags;}
+	static const FISGameplayTags& Get() {return GameplayTags;}
 	static void InitializeNativeTags();
 
 public:
@@ -51,7 +51,7 @@ protected:
 	void AddTag(FGameplayTag& OutTag, const ANSICHAR* TagName, const ANSICHAR* TagComment);
  
 private:
-    static FISGameplayTags GameplayTags;
+	static FISGameplayTags GameplayTags;
 };
 ```
 
