@@ -31,7 +31,7 @@ public:
 	EISAbilityActivationPolicy GetActivationPolicy() const {return ActivationPolicy;}
 	
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "SN|Ability Activation")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "InputSystem|Ability Activation")
 	EISAbilityActivationPolicy ActivationPolicy;
 	
 };
