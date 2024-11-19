@@ -17,7 +17,7 @@ void UISAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& Input
 	{
 		for (const FGameplayAbilitySpec& AbilitySpec : ActivatableAbilities.Items)
 		{
-			if (AbilitySpec.Ability && (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)))
+			if (AbilitySpec.Ability && (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag)))
 			{
 				InputPressedSpecHandles.AddUnique(AbilitySpec.Handle);
 				InputHeldSpecHandles.AddUnique(AbilitySpec.Handle);
@@ -32,7 +32,7 @@ void UISAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& Inpu
 	{
 		for (const FGameplayAbilitySpec& AbilitySpec : ActivatableAbilities.Items)
 		{
-			if (AbilitySpec.Ability && (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)))
+			if (AbilitySpec.Ability && (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag)))
 			{
 				InputReleasedSpecHandles.AddUnique(AbilitySpec.Handle);
 				InputHeldSpecHandles.Remove(AbilitySpec.Handle);
@@ -143,8 +143,12 @@ void UISAbilitySystemComponent::AbilitySpecInputPressed(FGameplayAbilitySpec& Sp
 	Super::AbilitySpecInputPressed(Spec);
 	if (Spec.IsActive())
 	{
+		const UGameplayAbility* Ability = Spec.GetPrimaryInstance();
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+		const FPredictionKey PredictionKey = Ability == nullptr ? Spec.ActivationInfo.GetActivationPredictionKey() : Ability->GetCurrentActivationInfo().GetActivationPredictionKey();
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		// Invoke the InputPressed event. This is not replicated here. If someone is listening, they may replicate the InputPressed event to the server.
-		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, Spec.Handle, Spec.ActivationInfo.GetActivationPredictionKey());
+		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, Spec.Handle, PredictionKey);
 	}
 }
 
@@ -153,8 +157,12 @@ void UISAbilitySystemComponent::AbilitySpecInputReleased(FGameplayAbilitySpec& S
 	Super::AbilitySpecInputReleased(Spec);
 	if (Spec.IsActive())
 	{
+		const UGameplayAbility* Ability = Spec.GetPrimaryInstance();
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+		const FPredictionKey PredictionKey = Ability == nullptr ? Spec.ActivationInfo.GetActivationPredictionKey() : Ability->GetCurrentActivationInfo().GetActivationPredictionKey();
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		// Invoke the InputReleased event. This is not replicated here. If someone is listening, they may replicate the InputReleased event to the server.
-		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, Spec.Handle, Spec.ActivationInfo.GetActivationPredictionKey());
+		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, Spec.Handle, PredictionKey);
 	}
 }
 

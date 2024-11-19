@@ -16,7 +16,7 @@ AISPlayerState::AISPlayerState()
 	// Set PlayerState's NetUpdateFrequency to the same as the Character,
 	// default is very low and will introduce perceived lag in the ability system.
 	// 100 may be way too high for a shipping game, you will need to adjust it to your needs.
-	NetUpdateFrequency = 100.0f;
+	SetNetUpdateFrequency(100.0f);
 }
 
 UAbilitySystemComponent* AISPlayerState::GetAbilitySystemComponent() const
