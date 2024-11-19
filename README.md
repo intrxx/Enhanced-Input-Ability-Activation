@@ -302,7 +302,7 @@ void UISAbilitySet::GiveToAbilitySystem(UISAbilitySystemComponent* InASC,
 
 		FGameplayAbilitySpec AbilitySpec(AbilityCDO, AbilityToGrant.AbilityLevel);
 		AbilitySpec.SourceObject = SourceObject;
-		AbilitySpec.DynamicAbilityTags.AddTag(AbilityToGrant.InputTag);
+		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilityToGrant.InputTag);
 		
 		const FGameplayAbilitySpecHandle AbilitySpecHandle = InASC->GiveAbility(AbilitySpec);
 
@@ -478,7 +478,7 @@ void UISAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& Input
 	{
 		for (const FGameplayAbilitySpec& AbilitySpec : ActivatableAbilities.Items)
 		{
-			if (AbilitySpec.Ability && (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)))
+			if (AbilitySpec.Ability && (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag)))
 			{
 				InputPressedSpecHandles.AddUnique(AbilitySpec.Handle);
 				InputHeldSpecHandles.AddUnique(AbilitySpec.Handle);
@@ -493,7 +493,7 @@ void UISAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& Inpu
 	{
 		for (const FGameplayAbilitySpec& AbilitySpec : ActivatableAbilities.Items)
 		{
-			if (AbilitySpec.Ability && (AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)))
+			if (AbilitySpec.Ability && (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag)))
 			{
 				InputReleasedSpecHandles.AddUnique(AbilitySpec.Handle);
 				InputHeldSpecHandles.Remove(AbilitySpec.Handle);
@@ -585,7 +585,11 @@ void UISAbilitySystemComponent::AbilitySpecInputPressed(FGameplayAbilitySpec& Sp
 	Super::AbilitySpecInputPressed(Spec);
 	if (Spec.IsActive())
 	{
-		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, Spec.Handle, Spec.ActivationInfo.GetActivationPredictionKey());
+		const UGameplayAbility* Ability = Spec.GetPrimaryInstance();
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+		const FPredictionKey PredictionKey = Ability == nullptr ? Spec.ActivationInfo.GetActivationPredictionKey() : Ability->GetCurrentActivationInfo().GetActivationPredictionKey();
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, Spec.Handle, PredictionKey);
 	}
 }
 
@@ -594,7 +598,11 @@ void UISAbilitySystemComponent::AbilitySpecInputReleased(FGameplayAbilitySpec& S
 	Super::AbilitySpecInputReleased(Spec);
 	if (Spec.IsActive())
 	{
-		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, Spec.Handle, Spec.ActivationInfo.GetActivationPredictionKey());
+		const UGameplayAbility* Ability = Spec.GetPrimaryInstance();
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+		const FPredictionKey PredictionKey = Ability == nullptr ? Spec.ActivationInfo.GetActivationPredictionKey() : Ability->GetCurrentActivationInfo().GetActivationPredictionKey();
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, Spec.Handle, PredictionKey);
 	}
 }
 ```
