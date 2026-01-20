@@ -1,4 +1,4 @@
-// Copyright 2023 Michał Ogiński.
+// Copyright 2026 out of sCope team - intrxx
 
 
 #include "Input/ISInputComponent.h"
