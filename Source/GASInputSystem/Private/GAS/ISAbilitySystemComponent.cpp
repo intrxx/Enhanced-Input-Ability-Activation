@@ -157,12 +157,17 @@ void UISAbilitySystemComponent::AbilitySpecInputReleased(FGameplayAbilitySpec& S
 	Super::AbilitySpecInputReleased(Spec);
 	if (Spec.IsActive())
 	{
-		const UGameplayAbility* Ability = Spec.GetPrimaryInstance();
+		/*const UGameplayAbility* Ability = Spec.GetPrimaryInstance();
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		const FPredictionKey PredictionKey = Ability == nullptr ? Spec.ActivationInfo.GetActivationPredictionKey() : Ability->GetCurrentActivationInfo().GetActivationPredictionKey();
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 		// Invoke the InputReleased event. This is not replicated here. If someone is listening, they may replicate the InputReleased event to the server.
-		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, Spec.Handle, PredictionKey);
+		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, Spec.Handle, PredictionKey);*/
+
+		TArray<UGameplayAbility*> Instances = Spec.GetAbilityInstances();
+		const FGameplayAbilityActivationInfo& ActivationInfo = Instances.Last()->GetCurrentActivationInfoRef();
+		FPredictionKey OriginalPredictionKey = ActivationInfo.GetActivationPredictionKey();
+		InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputReleased, Spec.Handle, OriginalPredictionKey);
 	}
 }
 
